@@ -29,3 +29,7 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 set foldmethod=syntax
+
+" Keyboard shortcuts for xclip
+noremap <F3> ! xclip -f<CR>
+noremap <F4> :w ! xclip -f<CR><CR>
