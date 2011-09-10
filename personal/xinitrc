@@ -1,0 +1,4 @@
+nohup xscreensaver -no-splash &
+xmodmap ~/.xmodmaprc
+xrdb -merge ~/.Xresources
+exec xmonad
