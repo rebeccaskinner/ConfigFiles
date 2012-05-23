@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=XSession
+Exec=start-xmonad
+TryExec=start-xmonad
+Name=XMonad
+Comment=Xmonad
