@@ -3,6 +3,9 @@ xrandr --output DVI-0 --mode 1920x1200
 xrandr --output DVI-1 --mode 1920x1200 
 xrandr --output DVI-0 --right-of DVI-1
 
+# make nice fancy compositing
+xcompmgr -c -f -F &
+
 # make capslock an additional control key
 setxkbmap -option ctrl:nocaps
 
