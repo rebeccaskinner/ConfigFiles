@@ -1,4 +1,25 @@
+# properly setup dual-head mode
+xrandr --output DVI-0 --mode 1920x1200 
+xrandr --output DVI-1 --mode 1920x1200 
+xrandr --output DVI-0 --right-of DVI-1
+
+# make capslock an additional control key
+setxkbmap -option ctrl:nocaps
+
+# set the cursor speed to something reasonable
+xset m 5 1
+
+# enable xscreensaver
 nohup xscreensaver -no-splash &
-xmodmap ~/.xmodmaprc
-xrdb -merge ~/.Xresources
-exec xmonad
+
+# use a real cursor
+xsetroot -cursor_name left_ptr
+
+# set a wallpaper
+feh --bg-tile ~/wallpapers/abstract.jpg
+
+# Run ssh-agent for this session
+eval $(ssh-agent)
+
+# start xmonad
+xmonad
