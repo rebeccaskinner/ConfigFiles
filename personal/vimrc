@@ -6,19 +6,22 @@ set smarttab
 set tw=79
 set tabpagemax=25
 set pastetoggle=<F2>
-colorscheme elflord
+set bg=dark
+colorscheme torte
+
+" Automatically jump to the line you were on last time you closed the file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal g'\"" | endif
 endif
 
-
-" Uncomment the following to have Vim load indentation rules according to the
-" detected filetype. Per default Debian Vim only load filetype specific
-" plugins.
+" Automatically load indentation rules based on filetype
 if has("autocmd")
   filetype indent on
 endif
+
+filetype plugin on
+set tags+=~/.vim/slamrtags
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -33,3 +36,16 @@ set foldmethod=syntax
 " Keyboard shortcuts for xclip
 noremap <F3> ! xclip -f<CR>
 noremap <F4> :w ! xclip -f<CR><CR>
+
+" haskell mode
+" au Bufenter *.hs compiler ghc
+" let g:haddoc_browser = "/usr/bin/google-chrome"
+
+" Set ruby indentation to 2 spaces
+"au FileType ruby,eruby set expandtab shiftwidth=2 foldmethod=indent
+
+"indent guide stuff
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd guibg=darkgrey ctermbg=darkgrey
+autocmd VimEnter,ColorScheme * :hi IndentGuidesEvent guibg=lightgrey ctermbg=lightgrey
