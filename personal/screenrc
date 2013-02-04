@@ -27,7 +27,11 @@ nethack on
 #deflogin on
 #autodetach off
 
-term "screen-256color"
+# screen 256 color hacks
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on"
+
 # turn visual bell on
 vbell on
 #vbell_msg "   Wuff  ----  Wuff!!  "

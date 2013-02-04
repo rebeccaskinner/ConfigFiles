@@ -6,8 +6,7 @@ set smarttab
 set tw=79
 set tabpagemax=25
 set pastetoggle=<F2>
-set bg=dark
-colorscheme torte
+colorscheme lucius
 
 " Automatically jump to the line you were on last time you closed the file
 if has("autocmd")
@@ -21,7 +20,6 @@ if has("autocmd")
 endif
 
 filetype plugin on
-set tags+=~/.vim/slamrtags
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
