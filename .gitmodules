@@ -1,0 +1,3 @@
+[submodule "projects/vim-octopress"]
+	path = projects/vim-octopress
+	url = https://github.com/tangledhelix/vim-octopress.git
