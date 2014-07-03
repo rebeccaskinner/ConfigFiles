@@ -6,7 +6,9 @@ set smarttab
 set tw=79
 set tabpagemax=25
 set pastetoggle=<F2>
-colorscheme lucius
+set nu
+set bg=dark
+colorscheme torte
 
 " Automatically jump to the line you were on last time you closed the file
 if has("autocmd")
@@ -19,32 +21,50 @@ if has("autocmd")
   filetype indent on
 endif
 
+if version >= 702
+    autocmd BufWinLeave * call clearmatches()
+endif
+
 filetype plugin on
 
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set smartcase		" Do smart case matching
-set incsearch		" Incremental search
-set autowrite		" Automatically save before commands like :next and :make
+set showcmd    " Show (partial) command in status line.
+set showmatch  " Show matching brackets.
+set smartcase  " Do smart case matching
+set incsearch  " Incremental search
+set autowrite  " Automatically save before commands like :next and :make
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
+
+if filereadable("${HOME}/.vim/haskell-config.vim")
+    source ${HOME}/.vim/haskell-config.vim
+endif
+
 set foldmethod=syntax
 
 " Keyboard shortcuts for xclip
 noremap <F3> ! xclip -f<CR>
 noremap <F4> :w ! xclip -f<CR><CR>
 
-" haskell mode
-" au Bufenter *.hs compiler ghc
 " let g:haddoc_browser = "/usr/bin/google-chrome"
 
 " Set ruby indentation to 2 spaces
 "au FileType ruby,eruby set expandtab shiftwidth=2 foldmethod=indent
 
-"indent guide stuff
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd guibg=darkgrey ctermbg=darkgrey
-autocmd VimEnter,ColorScheme * :hi IndentGuidesEvent guibg=lightgrey ctermbg=lightgrey
-autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
+" Make .json files act as javascript
+autocmd BufNewFile,BufRead *.json set ft=javascript
+
+" Highlight lines over 80 characters
+highlight BadFormatting ctermbg=red ctermfg=white guibg=#59292
+match BadFormatting /\%81v.\+/
+
+match ErrorMsg '\s\+$'
+
+let c_space_errors = 1
+let c_gnu = 1
+let ruby_space_errors = 1
+let PS1="subshell "
+
+let g:hasksyn_indent_search_backward = 100
+let g:hasksyn_dedent_after_return = 1
+let g:hasksyn_dedent_after_catchall_case = 1
