@@ -1,0 +1,1 @@
+/home/tim/projects/slamr2/util/slamr.vim
