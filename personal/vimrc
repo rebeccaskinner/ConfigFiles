@@ -7,8 +7,8 @@ set tw=79
 set tabpagemax=25
 set pastetoggle=<F2>
 set nu
-set bg=dark
-colorscheme torte
+set background=light
+colorscheme default
 
 " Automatically jump to the line you were on last time you closed the file
 if has("autocmd")

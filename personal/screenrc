@@ -27,7 +27,7 @@ nethack on
 #deflogin on
 #autodetach off
 
-# screen 256 color hacks
+# 256 color mode
 attrcolor b ".I"
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce "on"
@@ -70,9 +70,9 @@ termcapinfo vt100 dl=5\E[M
 #hardstatus off
 hardstatus alwayslastline
 # Set the hardstatus prop on gui terms to set the titlebar/icon title
-termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+termcapinfo xterm*|rxvt*|kterm*|Eterm*| hs:ts=\E]0;:fs=\007:ds=\E]0;\007
 # use this for the hard status string
-hardstatus string  '%{= kW}[%{= kw}%l%{= kW}] [%{= kB}%?%-w%?%?%{= kW}%n %t%?%{= kB}%?%+w%?%=%{= kw}] [%{= kY}%c%{= kw}]'
+hardstatus string  '%{= Wk}[%{= WK}%l%{= Wk}] [%{= Wk}%?%-w%?%?%{=ub WK}%n %t%?%{= Wk}%?%+w%?%=%{= Wk}] [%{= Wb}%c%{= Wk}]'
 
 # An alternative hardstatus to display a bar at the bottom listing the
 # windownames and highlighting the current windowname in blue. (This is only
