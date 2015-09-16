@@ -1,3 +1,4 @@
+{-# LANGUAGE NoMonomorphismRestriction #-}
 import XMonad
 import XMonad.Operations
 import XMonad.Hooks.DynamicLog
@@ -15,7 +16,7 @@ import System.IO
 import Control.Monad
 
 -- general definitions
-terminalEmulator = "konsole"
+terminalEmulator = "gnome-terminal"
 
 -- define layouts
 rzTall     = ResizableTall 1 (3/100) (1/2) []
@@ -69,8 +70,24 @@ keysList l =
 customShiftMask = mod4Mask .|. shiftMask
 customCtrlMask  = mod4Mask .|. controlMask
 
+configureScreen =
+  spawn "xscreensaver -no-spash" >>
+  spawn "feh --bg-fill ~/.config/wallpaper"
+ 
+configureKeyboardMouse =
+  spawn "xset m 5 1" >>
+  spawn "setxkbmap -option ctrl:nocaps"
+ 
+configureSSHAgent = 
+  spawn "eval $(ssh-agent)"
+  
+configureEnvironment = configureScreen >> configureKeyboardMouse >>
+                     configureSSHAgent
+
+
 main = do
         xmproc <- spawnPipe "xmobar"
+        configureEnvironment
         xmonad $ defaultConfig
             { manageHook = manageDocks <+> manageHook defaultConfig
             , layoutHook = windowNavigation $ avoidStruts myLayout
