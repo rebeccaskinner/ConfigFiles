@@ -109,5 +109,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=${HOME}/.cabal/bin:${HOME}/bin/:${PATH}
-# foo
+TEX_PATH="/usr/local/texlive/2015/bin/x86_64-darwin/"
+CABAL_PATH="${HOME}/bin:${HOME}/.cabal/bin"
+GNU_COREUTILS_PATH="$(brew --prefix coreutils)/libexec/gnubin"
+RBENV_PATH="${HOME}/.rbenv/bin/"
+USR_LOCAL="/usr/local/bin"
+MY_BIN="${HOME}/bin"
+export PATH="${TEX_PATH}:${CABAL_PATH}:${GNU_COREUTILS_PATH}:${RBENV_PATH}:${MY_BIN}:${USR_LOCAL}:${PATH}"
+eval "$(rbenv init -)"

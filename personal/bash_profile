@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. ~/.bashrc
+source ~/.bash_funs
+source ~/.git_tab_completion
+source /Users/rebecca/erlangs/17.4/activate
