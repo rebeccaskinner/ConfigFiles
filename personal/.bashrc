@@ -8,6 +8,10 @@ case $- in
       *) return;;
 esac
 
+if [ -f "${HOME}/.bash_env" ]; then
+   source "${HOME}/.bash_env"
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -109,11 +113,23 @@ if ! shopt -oq posix; then
   fi
 fi
 
-TEX_PATH="/usr/local/texlive/2015/bin/x86_64-darwin/"
-CABAL_PATH="${HOME}/bin:${HOME}/.cabal/bin"
-GNU_COREUTILS_PATH="$(brew --prefix coreutils)/libexec/gnubin"
-RBENV_PATH="${HOME}/.rbenv/bin/"
-USR_LOCAL="/usr/local/bin"
-MY_BIN="${HOME}/bin"
-export PATH="${TEX_PATH}:${CABAL_PATH}:${GNU_COREUTILS_PATH}:${RBENV_PATH}:${MY_BIN}:${USR_LOCAL}:${PATH}"
+if [ -f ${ANSIBLE_ENV} ]; then
+    pushd ${ANSIBLE_ENV_DIR}
+    source ${ANSIBLE_ENV}
+    popd
+fi
+
+export GOPATH="${HOME}/go"
+if [[ -d $GOPATH ]]; then
+  echo "Gopath already exists!"
+else
+  echo "Creting GOPATH at ${GOPATH}"
+  mkdir -p $GOPATH
+fi
+
+export GO_BIN="${GOPATH}/bin"
+export RMQ_MGMT_PORT="15672"
+export EDITOR='emacsclient -c -n'
+export PATH="${GO_BIN}:${TEX_PATH}:${CABAL_PATH}:${GNU_COREUTILS_PATH}:${RBENV_PATH}:${MY_BIN}:${USR_LOCAL}:${PATH}"
 eval "$(rbenv init -)"
+. "${HOME}/.nix-profile/etc/profile.d/nix.sh"
