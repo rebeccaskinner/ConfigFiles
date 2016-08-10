@@ -10,4 +10,8 @@ alias qiv='qiv -t -I'
 alias gvalgrind='G_SLICE=alway-malloc G_DEBUG=gc-friendly'
 alias screen='screen -T screen-256color'
 alias grep='egrep --color=auto'
-alias emacs='emacs -nw'
+alias gp='git push origin head'
+
+if [[ $(uname) == "Darwin" ]]; then
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+fi
