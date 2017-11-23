@@ -1,4 +1,5 @@
 #!/bin/bash
 
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source ~/.git_tab_completion
 . ~/.bashrc
