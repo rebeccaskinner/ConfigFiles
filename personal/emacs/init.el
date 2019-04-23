@@ -25,6 +25,7 @@
 (add-to-list 'load-path "/Users/rebecca/repos/emacs/distel/elisp")
 (add-to-list 'load-path "/Users/rebecca/repos/emacs/")
 
+
 ; (require 'cfg-pkg-deps)
 ; (setq cfg-pkg-installed-package-list (concat user-emacs-directory "installed-packages"))
 ; (setq cfg-pkg-installed-package-list (concat (emacs-cfg-dir) "installed-packages"))
@@ -79,7 +80,9 @@
                           dash-at-point
                           dash-functional
                           deferred
+                          dhall-mode
                           direx
+                          direnv
                           e2wm
                           edbi
                           edbi-sqlite
@@ -339,6 +342,7 @@
   (add-to-paths (make-home-path "go/bin"))
   (add-to-paths (make-home-path "bin"))
   (add-to-paths "/nix/var/nix/profiles/default/bin")
+  (add-to-paths (make-home-path ".nix-profile/bin"))
   )
 
 (defun update-eshell-path ()
@@ -502,7 +506,7 @@ static char *gnus-pointer[] = {
  '(org-trello-current-prefix-keybinding "C-c o")
  '(package-selected-packages
    (quote
-    (proof-general rebecca-theme ox-gfm nix-buffer nix-mode nix-sandbox nix-update e2wm erlang flycheck-rebar3 ac-R ess ess-R-data-view ess-smart-equals ess-smart-underscore ess-view hive protobuf-mode restclient company-coq company-erlang company-inf-ruby company-terraform helm-company clues-theme creamsody-theme darcula-theme faff-theme hemera-theme hydandata-light-theme iodine-theme kaolin-themes cherry-blossom-theme autumn-light-theme bliss-theme bubbleberry-theme alect-themes auctex-latexmk slime-volleyball steam typing edbi-sqlite emacsql format-sql tsql edbi sql-indent inf-ruby enh-ruby-mode flycheck-swift3 swift3-mode coffee-mode highlight-indent-guides ample-zen-theme arjen-grey-theme atom-one-dark-theme eziam-theme pyenv-mode auto-virtualenvwrapper python-environment virtualenv ac-python cucumber-goto-step elpy feature-mode flycheck-pycheckers flycheck-pyflakes flymake-python-pyflakes importmagic py-autopep8 py-import-check flyspell-correct-helm helm helm-codesearch helm-commandlinefu helm-cscope helm-dash helm-flymake helm-flyspell helm-grepint helm-helm-commands helm-hoogle helm-idris helm-lobsters helm-org-rifle edit-indirect auctex dash-at-point go-guru flycheck-purescript psci purescript-mode js-comint ob-typescript ts-comint typescript-mode spacemacs-theme svg-clock ox-reveal auto-virtualenv csv-mode idris-mode abyss-theme afternoon-theme ample-theme assemblage-theme atom-dark-theme badger-theme goto-last-change yaml-mode save-packages rustfmt ruby-guard realgud rainbow-delimiters python-mode paredit ox-pandoc ox-asciidoc org-trello org-plus-contrib ob-restclient ob-http ob-go ob-diagrams markdown-mode+ man-commands magit-find-file magit-filenotify latex-preview-pane latex-pretty-symbols latex-extra kerl json-mode intero inf-clojure hippie-namespace hippie-exp-ext helm-google helm-go-package helm-ghc helm-flycheck helm-ack hcl-mode grapnel graphviz-dot-mode go-stacktracer go-scratch go-rename go-playground-cli go-playground go-gopath go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ghci-completion gh-md flycheck-rust flycheck-haskell flycheck-gometalinter flycheck-elm fill-column-indicator expand-region etags-select eshell-manual ert-runner ert-modeline ert-expectations ert-async elm-mode color-theme-twilight color-theme-solarized color-theme-emacs-revert-theme cmake-mode closure-lint-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-here clojure-env clojure-cheatsheet cider-spy cider-profile cider-eval-sexp-fu cider-decompile cdlatex cargo buffer-extension auto-indent-mode auto-complete-etags auto-complete-c-headers ascii ansible-doc ansible align-cljlet ace-window ac-math ac-helm ac-etags ac-cider ac-c-headers)))
+    (dhall-mode direnv proof-general rebecca-theme ox-gfm nix-buffer nix-mode nix-sandbox nix-update e2wm erlang flycheck-rebar3 ac-R ess ess-R-data-view ess-smart-equals ess-smart-underscore ess-view hive protobuf-mode restclient company-coq company-erlang company-inf-ruby company-terraform helm-company clues-theme creamsody-theme darcula-theme faff-theme hemera-theme hydandata-light-theme iodine-theme kaolin-themes cherry-blossom-theme autumn-light-theme bliss-theme bubbleberry-theme alect-themes auctex-latexmk slime-volleyball steam typing edbi-sqlite emacsql format-sql tsql edbi sql-indent inf-ruby enh-ruby-mode flycheck-swift3 swift3-mode coffee-mode highlight-indent-guides ample-zen-theme arjen-grey-theme atom-one-dark-theme eziam-theme pyenv-mode auto-virtualenvwrapper python-environment virtualenv ac-python cucumber-goto-step elpy feature-mode flycheck-pycheckers flycheck-pyflakes flymake-python-pyflakes importmagic py-autopep8 py-import-check flyspell-correct-helm helm helm-codesearch helm-commandlinefu helm-cscope helm-dash helm-flymake helm-flyspell helm-grepint helm-helm-commands helm-hoogle helm-idris helm-lobsters helm-org-rifle edit-indirect auctex dash-at-point go-guru flycheck-purescript psci purescript-mode js-comint ob-typescript ts-comint typescript-mode spacemacs-theme svg-clock ox-reveal auto-virtualenv csv-mode idris-mode abyss-theme afternoon-theme ample-theme assemblage-theme atom-dark-theme badger-theme goto-last-change yaml-mode save-packages rustfmt ruby-guard realgud rainbow-delimiters python-mode paredit ox-pandoc ox-asciidoc org-trello org-plus-contrib ob-restclient ob-http ob-go ob-diagrams markdown-mode+ man-commands magit-find-file magit-filenotify latex-preview-pane latex-pretty-symbols latex-extra kerl json-mode intero inf-clojure hippie-namespace hippie-exp-ext helm-google helm-go-package helm-ghc helm-flycheck helm-ack hcl-mode grapnel graphviz-dot-mode go-stacktracer go-scratch go-rename go-playground-cli go-playground go-gopath go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ghci-completion gh-md flycheck-rust flycheck-haskell flycheck-gometalinter flycheck-elm fill-column-indicator expand-region etags-select eshell-manual ert-runner ert-modeline ert-expectations ert-async elm-mode color-theme-twilight color-theme-solarized color-theme-emacs-revert-theme cmake-mode closure-lint-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-here clojure-env clojure-cheatsheet cider-spy cider-profile cider-eval-sexp-fu cider-decompile cdlatex cargo buffer-extension auto-indent-mode auto-complete-etags auto-complete-c-headers ascii ansible-doc ansible align-cljlet ace-window ac-math ac-helm ac-etags ac-cider ac-c-headers)))
  '(pos-tip-background-color "#1A3734")
  '(pos-tip-foreground-color "#FFFFC8")
  '(powerline-color1 "#222232")
@@ -582,6 +586,13 @@ static char *gnus-pointer[] = {
   (global-set-key (kbd "C-)") 'forward-sexp)
   (global-set-key (kbd "C-(") 'backward-sexp)
   )
+
+(defun my-dhall-mode-config ()
+  "Configure basic settings when editing in dhall-mode."
+  (default-programming-config)
+  )
+
+(add-hook 'dhall-mode 'my-dhall-mode-config)
 
 (defun my-nix-mode-config ()
   "Configure defaults for editing nix expressions."
@@ -1005,6 +1016,27 @@ if EXTENSION is specified, use it for refreshing etags, or default to .el."
 (add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hooks)
 ;; (add-hook 'haskell-mode-hook 'my-set-hasklig-ligatures)
+
+(defun my-rust-mode-hook()
+  (defun rsfmt()
+    "Call rustfmt."
+    (interactive)
+    (setq p (point))
+    (shell-command-on-region (point-min) (point-max)  "rustfmt" nil t)
+    (goto-char p)
+    )
+  (defun rust-save-hook()
+    (when (eq major-mode 'rust-mode)
+      (rsfmt)
+      )
+    )
+  (add-hook 'before-save-hook 'rust-save-hook)
+  (local-set-key (kbd "C-<tab>") 'rsfmt)
+  (default-programming-config)
+  (setq rust-indent-offset 2)
+  )
+
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
 
 ;; Speedbar Configuration
 (require 'speedbar)
