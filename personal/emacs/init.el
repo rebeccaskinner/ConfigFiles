@@ -5,6 +5,9 @@
 ;;; Code:
 (require 'cl)
 
+;; disable the menu bar
+(menu-bar-mode -1)
+
 ;; Disable the splash screen
 (setq inhibit-splash-screen t)
 
@@ -16,6 +19,11 @@
     )
   )
 
+;(set-frame-parameter (selected-frame) 'alpha '(90 . 70))
+;(add-to-list 'default-frame-alist '(alpha . (90 . 70)))
+
+;; Set the default browser to firefox
+(setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Add "~/.emacs.d/lisp/" to the load path
 (add-to-list 'load-path (concat
@@ -24,7 +32,6 @@
                          ))
 (add-to-list 'load-path "/Users/rebecca/repos/emacs/distel/elisp")
 (add-to-list 'load-path "/Users/rebecca/repos/emacs/")
-
 
 ; (require 'cfg-pkg-deps)
 ; (setq cfg-pkg-installed-package-list (concat user-emacs-directory "installed-packages"))
@@ -36,229 +43,6 @@
                          ("marmalade"    . "http://marmalade-repo.org/packages/")
                          ("melpa"        . "http://melpa.org/packages/")))
 (package-initialize)
-
-; set up some required packages
-(setq required-packages '(
-                          ac-c-headers
-                          ac-etags
-                          ac-helm
-                          ac-math
-                          ac-python
-                          ace-window
-                          align-cljlet
-                          ansi
-                          ansible
-                          ansible-doc
-                          ascii
-                          async
-                          auctex
-                          auctex-latexmk
-                          auto-complete
-                          auto-complete-c-headers
-                          auto-complete-etags
-                          auto-indent-mode
-                          auto-virtualenv
-                          auto-virtualenvwrapper
-                          autothemer
-                          avy
-                          buffer-extension
-                          cargo
-                          cdlatex
-                          cider
-                          commander
-                          company
-                          company-coq
-                          company-inf-ruby
-                          company-math
-                          company-terraform
-                          concurrent
-                          counsel
-                          csv-mode
-                          ctable
-                          darcula-theme
-                          dash
-                          dash-at-point
-                          dash-functional
-                          deferred
-                          dhall-mode
-                          direx
-                          direnv
-                          e2wm
-                          edbi
-                          edbi-sqlite
-                          edit-indirect
-                          elm-mode
-                          elpy
-                          emacsql
-                          enh-ruby-mode
-                          epc
-                          epl
-                          eshell-manual
-                          etags-select
-                          expand-region
-                          feature-mode
-                          fill-column-indicator
-                          find-file-in-project
-                          flycheck
-                          flycheck-elm
-                          flycheck-gometalinter
-                          flycheck-haskell
-                          flycheck-pycheckers
-                          flycheck-pyflakes
-                          flycheck-rust
-                          flymake-easy
-                          flymake-python-pyflakes
-                          flyspell-correct
-                          flyspell-correct-helm
-                          format-sql
-                          gh-md
-                          ghc
-                          ghci-completion
-                          git-commit
-                          go-autocomplete
-                          go-complete
-                          go-direx
-                          go-dlv
-                          go-eldoc
-                          go-errcheck
-                          go-gopath
-                          go-guru
-                          go-mode
-                          go-playground
-                          go-playground-cli
-                          go-rename
-                          go-scratch
-                          go-stacktracer
-                          gotest
-                          goto-last-change
-                          graphviz-dot-mode
-                          grapnel
-                          haskell-mode
-                          hcl-mode
-                          helm
-                          helm-ack
-                          helm-codesearch
-                          helm-commandlinefu
-                          helm-company
-                          helm-core
-                          helm-cscope
-                          helm-dash
-                          helm-flycheck
-                          helm-flymake
-                          helm-flyspell
-                          helm-ghc
-                          helm-go-package
-                          helm-google
-                          helm-grepint
-                          helm-helm-commands
-                          helm-hoogle
-                          helm-idris
-                          helm-lobsters
-                          helm-org-rifle
-                          highlight-indent-guides
-                          highlight-indentation
-                          hippie-exp-ext
-                          hippie-namespace
-                          hive
-                          ht
-                          idris-mode
-                          importmagic
-                          inf-ruby
-                          intero
-                          ivy
-                          js-comint
-                          json-mode
-                          json-reformat
-                          json-snatcher
-                          latex-extra
-                          latex-pretty-symbols
-                          latex-preview-pane
-                          load-relative
-                          loc-changes
-                          magit
-                          magit-filenotify
-                          magit-find-file
-                          man-commands
-                          markdown-mode
-                          markdown-mode+
-                          math-symbol-lists
-                          names
-                          nix-buffer
-                          nix-mode
-                          nix-sandbox
-                          nix-update
-                          ob-diagrams
-                          ob-go
-                          ob-http
-                          ob-restclient
-                          org
-                          org-plus-contrib
-                          ox-asciidoc
-                          ox-gfm
-                          ox-pandoc
-                          ox-reveal
-                          paredit
-                          pcre2el
-                          pkg-info
-                          popup
-                          projectile
-                          proof-general
-                          prop-menu
-                          protobuf-mode
-                          psci
-                          py-autopep8
-                          py-import-check
-                          pyenv-mode
-                          python-environment
-                          python-mode
-                          pythonic
-                          pyvenv
-                          queue
-                          rainbow-delimiters
-                          realgud
-                          rebecca-theme
-                          reformatter
-                          request
-                          request-deferred
-                          restclient
-                          rust-mode
-                          s
-                          save-packages
-                          seq
-                          sesman
-                          shut-up
-                          slime-volleyball
-                          spinner
-                          sql-indent
-                          steam
-                          svg
-                          svg-clock
-                          swift3-mode
-                          swiper
-                          terraform-mode
-                          test-simple
-                          transient
-                          ts-comint
-                          tsql
-                          typescript-mode
-                          typing
-                          virtualenv
-                          virtualenvwrapper
-                          window-layout
-                          with-editor
-                          xcscope
-                          yaml-mode
-                          yasnippet
-                          )
-      )
-
-(mapc
- (lambda (package)
-   (unless (package-installed-p package)
-     (progn (message "installing %s" package)
-            (package-refresh-contents)
-            (package-install package))))
- required-packages)
 
 ;; improve look and fee on macos
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -275,6 +59,10 @@
 ;; Show the current time in the modeline
 (display-time-mode 1)
 
+(use-package direnv
+  :config
+  (direnv-mode))
+
 ;; enable emoji
 ; (add-hook 'after-init-hook #'global-emojify-mode)
 
@@ -283,20 +71,11 @@
   (global-set-key (kbd "M-P") 'ace-window)
   (global-set-key (kbd "<M-up>") 'ace-window)
   (global-set-key (kbd "C-'") 'goto-last-change)
-  (global-set-key (kbd "M-/") 'dash-at-point)
   (global-set-key (kbd "C-M-s") 'isearch-forward-regexp)
   (global-set-key (kbd "C-M-r") 'isearch-backward-regexp)
   )
 
-(defun setup-dash-modes()
-  "Setup mode-specific doc searches for dash."
-  (add-to-list 'dash-at-point-mode-alist '(go-mode . "go"))
-  (add-to-list 'dash-at-point-mode-alist '(emacs-lisp-mode . "elisp"))
-  (add-to-list 'dash-at-point-mode-alist '(python-mode . "python"))
-  )
-
 (setup-global-keybindings)
-(setup-dash-modes)
 
 (defun configure-temp-files()
   "Set the auto-save and backup files to /tmp/"
@@ -393,6 +172,12 @@
   (require 'ob-ruby)
   )
 
+(defun enable-org-reveal()
+  (require 'ox-reveal)
+  (setq org-reveal-root (make-home-path "projects/reveal.js"))
+  )
+
+(add-hook 'org-mode-hook 'enable-org-reveal)
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'org-mode-hook 'enable-orgmode-graphiz-execution)
 (add-hook 'org-mode-hook 'enable-orgmode-ditaa-execution)
@@ -408,7 +193,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :heightf 140 :width normal :height 140))))
+ '(default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight semi-bold :heightf 140 :width normal :height 102))))
  '(go-test--error-face ((t (:foreground "dark red"))))
  '(go-test--ok-face ((t (:foreground "dark green"))))
  '(go-test--pointer-face ((t (:foreground "dark blue"))))
@@ -429,7 +214,65 @@
  '(custom-safe-themes
    (quote
     ("f633d825e380caaaefca46483f7243ae9a663f6df66c5fad66d4cab91f731c86" "ffca7ac44bfe9d585363f6bbf29f19529de216f85dce7a831dfc28883959ec05" "adde823697efd8b7532eb0406b60903310979b334e431f35d282399d6655512e" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "776a586a87389c6184c66a7b93a1eced8b04c9769c71e47421ba6893e0de0948" "bb2fd25d5f0cea2327bd5377556e5d2ae575b7a7c218ca1ec1114dd31e7b5504" "cf1b0cfbe1708be0a24242f24e974e3af22660a7099c425a2d9c5f39c5d791d9" "ff59cdca8a044e205c093017e0da9b6b4b7a12f03108fef709f87bb959507e55" "33dad529287820c29b9589c5100e69749bb81bf9d509799ba2107760ec0fbf97" "107693012b59b3a94faa869756333b8fe7224670f762ce97eb1dda89f03f5bcd" "28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" "e9460a84d876da407d9e6accf9ceba453e2f86f8b86076f37c08ad155de8223c" "1177fe4645eb8db34ee151ce45518e47cc4595c3e72c55dc07df03ab353ad132" "83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" "ee89863f86247942d9fc404d47b2704475b146c079c1dcd2390d697ddfa9bdf4" "55baf0e5235a0268ea0b9b32f7099eb5e85a8e347fa63d6e2c9d6046362e1efb" "f6311cfb637f0e4fdc56576c06c9fb695dd5336a78e704d6733ca9489ad66595" "8b313e1793da427e90c034dbe74f3ad9092ac291846c0f855908c42a6bda1ff4" "c5a886cc9044d8e6690a60f33db45506221aa0777a82ad1f7fe11a96d203fa44" "3c06231f8aa4ad2ebc07d70ade7a1d310cc2adab02251c77a1882787e30f8394" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" "0ee3fc6d2e0fc8715ff59aed2432510d98f7e76fe81d183a0eb96789f4d897ca" "e83c94a6bfab82536cef63610ec58d08dfddd27752d860763055daf58d028aad" "cc60d17db31a53adf93ec6fad5a9cfff6e177664994a52346f81f62840fe8e23" "55d31108a7dc4a268a1432cd60a7558824223684afecefa6fae327212c40f8d3" "61d3bac1f6ac6fa6df27ca63f5f8ad5a17a911d836b49cb6bdda327fedc04abf" "87073e92c4437df15f127e18cb05b2832c99689201c4d81dee3c20c7197d62e7" "5e3fc08bcadce4c6785fc49be686a4a82a356db569f55d411258984e952f194a" "0c387e27a3dd040b33c6711ff92e13bd952369a788eee97e4e4ea2335ac5528f" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "1f3113447a652b8436a9938bbac71ecaf022cc73ecd0d76182eb9713aa781f17" "1db337246ebc9c083be0d728f8d20913a0f46edc0a00277746ba411c149d7fe5" "551596f9165514c617c99ad6ce13196d6e7caa7035cea92a0e143dbe7b28be0e" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a4c9e536d86666d4494ef7f43c84807162d9bd29b0dfd39bdf2c3d845dcc7b2e" "4bfced46dcfc40c45b076a1758ca106a947b1b6a6ff79a3281f3accacfb3243c" "9b402e9e8f62024b2e7f516465b63a4927028a7055392290600b776e4a5b9905" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" default)))
+ '(dante-methods-alist
+   (quote
+    ((new-impure-nix dante-cabal-new-nix
+                     ("nix-shell" "--run"
+                      (concat "cabal new-repl "
+                              (or dante-target
+                                  (dante-package-name)
+                                  "")
+                              " --builddir=dist/dante")))
+     (new-nix dante-cabal-new-nix
+              ("nix-shell" "--pure" "--run"
+               (concat "cabal new-repl "
+                       (or dante-target
+                           (dante-package-name)
+                           "")
+                       " --builddir=dist/dante")))
+     (nix dante-cabal-nix
+          ("nix-shell" "--pure" "--run"
+           (concat "cabal repl "
+                   (or dante-target "")
+                   " --builddir=dist/dante")))
+     (impure-nix dante-cabal-nix
+                 ("nix-shell" "--run"
+                  (concat "cabal repl "
+                          (or dante-target "")
+                          " --builddir=dist/dante")))
+     (new-build "cabal.project.local"
+                ("cabal" "new-repl"
+                 (or dante-target
+                     (dante-package-name)
+                     nil)
+                 "--builddir=dist/dante"))
+     (nix-ghci
+      #[257 "\300\301\302#\207"
+            [directory-files t "shell.nix\\|default.nix"]
+            5 "
+
+(fn D)"]
+      ("nix-shell" "--pure" "--run" "ghci"))
+     (stack "stack.yaml"
+            ("stack" "repl" dante-target))
+     (mafia "mafia"
+            ("mafia" "repl" dante-target))
+     (bare-cabal
+      #[257 "\300\301\302#\207"
+            [directory-files t "..cabal$"]
+            5 "
+
+(fn D)"]
+      ("cabal" "repl" dante-target "--builddir=dist/dante"))
+     (bare-ghci
+      #[257 "\300\207"
+            [t]
+            2 "
+
+(fn _)"]
+      ("ghci")))))
  '(diary-entry-marker (quote font-lock-variable-name-face))
+ '(display-time-mode t)
  '(emms-mode-line-icon-image-cache
    (quote
     (image :type xpm :ascent center :data "/* XPM */
@@ -499,18 +342,20 @@ static char *gnus-pointer[] = {
  '(hl-paren-colors
    (quote
     ("#B9F" "#B8D" "#B7B" "#B69" "#B57" "#B45" "#B33" "#B11")))
- '(linum-format " %6d ")
  '(main-line-color1 "#222232")
  '(main-line-color2 "#333343")
  '(org-agenda-files (quote ("~/Desktop/interviews.org")))
  '(org-trello-current-prefix-keybinding "C-c o")
  '(package-selected-packages
    (quote
-    (dhall-mode direnv proof-general rebecca-theme ox-gfm nix-buffer nix-mode nix-sandbox nix-update e2wm erlang flycheck-rebar3 ac-R ess ess-R-data-view ess-smart-equals ess-smart-underscore ess-view hive protobuf-mode restclient company-coq company-erlang company-inf-ruby company-terraform helm-company clues-theme creamsody-theme darcula-theme faff-theme hemera-theme hydandata-light-theme iodine-theme kaolin-themes cherry-blossom-theme autumn-light-theme bliss-theme bubbleberry-theme alect-themes auctex-latexmk slime-volleyball steam typing edbi-sqlite emacsql format-sql tsql edbi sql-indent inf-ruby enh-ruby-mode flycheck-swift3 swift3-mode coffee-mode highlight-indent-guides ample-zen-theme arjen-grey-theme atom-one-dark-theme eziam-theme pyenv-mode auto-virtualenvwrapper python-environment virtualenv ac-python cucumber-goto-step elpy feature-mode flycheck-pycheckers flycheck-pyflakes flymake-python-pyflakes importmagic py-autopep8 py-import-check flyspell-correct-helm helm helm-codesearch helm-commandlinefu helm-cscope helm-dash helm-flymake helm-flyspell helm-grepint helm-helm-commands helm-hoogle helm-idris helm-lobsters helm-org-rifle edit-indirect auctex dash-at-point go-guru flycheck-purescript psci purescript-mode js-comint ob-typescript ts-comint typescript-mode spacemacs-theme svg-clock ox-reveal auto-virtualenv csv-mode idris-mode abyss-theme afternoon-theme ample-theme assemblage-theme atom-dark-theme badger-theme goto-last-change yaml-mode save-packages rustfmt ruby-guard realgud rainbow-delimiters python-mode paredit ox-pandoc ox-asciidoc org-trello org-plus-contrib ob-restclient ob-http ob-go ob-diagrams markdown-mode+ man-commands magit-find-file magit-filenotify latex-preview-pane latex-pretty-symbols latex-extra kerl json-mode intero inf-clojure hippie-namespace hippie-exp-ext helm-google helm-go-package helm-ghc helm-flycheck helm-ack hcl-mode grapnel graphviz-dot-mode go-stacktracer go-scratch go-rename go-playground-cli go-playground go-gopath go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ghci-completion gh-md flycheck-rust flycheck-haskell flycheck-gometalinter flycheck-elm fill-column-indicator expand-region etags-select eshell-manual ert-runner ert-modeline ert-expectations ert-async elm-mode color-theme-twilight color-theme-solarized color-theme-emacs-revert-theme cmake-mode closure-lint-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-here clojure-env clojure-cheatsheet cider-spy cider-profile cider-eval-sexp-fu cider-decompile cdlatex cargo buffer-extension auto-indent-mode auto-complete-etags auto-complete-c-headers ascii ansible-doc ansible align-cljlet ace-window ac-math ac-helm ac-etags ac-cider ac-c-headers)))
+    (shakespeare-mode pdf-tools use-package dante dhall-mode direnv proof-general rebecca-theme ox-gfm nix-buffer nix-mode nix-sandbox nix-update e2wm erlang flycheck-rebar3 ac-R ess ess-R-data-view ess-smart-equals ess-smart-underscore ess-view hive protobuf-mode restclient company-coq company-erlang company-inf-ruby company-terraform helm-company clues-theme creamsody-theme darcula-theme faff-theme hemera-theme hydandata-light-theme iodine-theme kaolin-themes cherry-blossom-theme autumn-light-theme bliss-theme bubbleberry-theme alect-themes auctex-latexmk slime-volleyball steam typing edbi-sqlite emacsql format-sql tsql edbi sql-indent inf-ruby enh-ruby-mode flycheck-swift3 swift3-mode coffee-mode highlight-indent-guides ample-zen-theme arjen-grey-theme atom-one-dark-theme eziam-theme pyenv-mode auto-virtualenvwrapper python-environment virtualenv ac-python cucumber-goto-step elpy feature-mode flycheck-pycheckers flycheck-pyflakes flymake-python-pyflakes importmagic py-autopep8 py-import-check flyspell-correct-helm helm helm-codesearch helm-commandlinefu helm-cscope helm-flymake helm-flyspell helm-grepint helm-helm-commands helm-hoogle helm-idris helm-lobsters helm-org-rifle edit-indirect auctex go-guru flycheck-purescript psci purescript-mode js-comint ob-typescript ts-comint typescript-mode spacemacs-theme svg-clock ox-reveal auto-virtualenv csv-mode idris-mode abyss-theme afternoon-theme ample-theme assemblage-theme atom-dark-theme badger-theme goto-last-change yaml-mode save-packages rustfmt ruby-guard realgud rainbow-delimiters python-mode paredit ox-pandoc ox-asciidoc org-trello org-plus-contrib ob-restclient ob-http ob-go ob-diagrams markdown-mode+ man-commands magit-find-file magit-filenotify latex-preview-pane latex-pretty-symbols latex-extra kerl json-mode intero inf-clojure hippie-namespace hippie-exp-ext helm-google helm-go-package helm-ghc helm-flycheck helm-ack hcl-mode grapnel graphviz-dot-mode go-stacktracer go-scratch go-rename go-playground-cli go-playground go-gopath go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ghci-completion gh-md flycheck-rust flycheck-haskell flycheck-gometalinter flycheck-elm fill-column-indicator expand-region etags-select eshell-manual ert-runner ert-modeline ert-expectations ert-async elm-mode color-theme-twilight color-theme-solarized color-theme-emacs-revert-theme cmake-mode closure-lint-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-here clojure-env clojure-cheatsheet cider-spy cider-profile cider-eval-sexp-fu cider-decompile cdlatex cargo buffer-extension auto-indent-mode auto-complete-etags auto-complete-c-headers ascii ansible-doc ansible align-cljlet ace-window ac-math ac-helm ac-etags ac-cider ac-c-headers)))
  '(pos-tip-background-color "#1A3734")
  '(pos-tip-foreground-color "#FFFFC8")
  '(powerline-color1 "#222232")
  '(powerline-color2 "#333343")
+ '(safe-local-variable-values
+   (quote
+    ((dante-project-root "/home/rebecca/projects/streamtest"))))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -565,11 +410,12 @@ static char *gnus-pointer[] = {
   (require 'expand-region)
   (global-set-key (kbd "C-=") 'er/expand-region))
 
-(defun line-nums ()
-  "Enable global line numbers for programming modes."
-  (global-linum-mode 1)
-  (setq linum-format "%4d \u2502 ")
-  )
+;; (defun line-nums ()
+;;   "Enable global line numbers for programming modes."
+;; ;  (global-linum-mode 1)
+;;   (add-hook 'prog-mode-hook 'linum-on)
+;;   (setq linum-format "%4d \u2502 ")
+;;   )
 
 ;; mode specific configs
 (defun default-programming-config ()
@@ -580,7 +426,7 @@ static char *gnus-pointer[] = {
   (fci-mode 1)
   (set-fill-column 80)
   (enable-expand-region)
-  (line-nums)
+;  (line-nums)
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (setq tab-width 2)
   (global-set-key (kbd "C-)") 'forward-sexp)
@@ -996,10 +842,11 @@ if EXTENSION is specified, use it for refreshing etags, or default to .el."
 
 
 (defun my-haskell-mode-hooks()
-    (defun hsfmt()
+  (defun hsfmt()
+    "Apply stylish-haskell to the current buffer."
     (interactive)
-    (setq p (point))
-    (shell-command-on-region (point-min) (point-max)  "hindent" nil t)
+    (defvar-local p (point))
+    (shell-command-on-region (point-min) (point-max)  "stylish-haskell" nil t)
     (goto-char p)
     )
   (defun hs-save-hook()
@@ -1007,15 +854,38 @@ if EXTENSION is specified, use it for refreshing etags, or default to .el."
       (hsfmt)
       )
     )
-;;  (add-hook 'before-save-hook 'hs-save-hook)
   (global-set-key (kbd "C-<tab>") 'hsfmt)
   )
 
-(add-hook 'intero-mode-hook (lambda() (setq dash-at-point-docset "haskell")))
 ;; Haskell Mode
-(add-hook 'haskell-mode-hook 'intero-mode)
+(use-package dante
+  :ensure t
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  )
+
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hooks)
-;; (add-hook 'haskell-mode-hook 'my-set-hasklig-ligatures)
+
+;; Setup haskell-cabal-mode
+(defun my-haskell-cabal-mode()
+  (defun hsfmt()
+    "Apply stylish-cabal to the current buffer."
+    (interactive)
+    (defvar-local p (point))
+    (shell-command-on-region (point-min) (point-max)  "stylish-cabal" nil t)
+    (goto-char p)
+    )
+  (defun hs-save-hook()
+    (when (eq major-mode 'haskell-mode)
+      (hsfmt)
+      )
+    )
+  (global-set-key (kbd "C-<tab>") 'hsfmt)
+  )
+(add-hook 'haskell-cabal-mode-hook 'my-haskell-cabal-mode)
 
 (defun my-rust-mode-hook()
   (defun rsfmt()
@@ -1109,11 +979,13 @@ if EXTENSION is specified, use it for refreshing etags, or default to .el."
 
 (ruby-config)
 
+(pdf-loader-install)
+
 ;; Setup theme
 (defun configure-theme()
-  (load-theme 'rebecca)
-  ;(load-theme 'spacemacs-dark)
-  ; (load-theme 'leuven)
+;  (load-theme 'spacemacs-dark)
+                                        ;(load-theme 'leuven)
+   (load-theme 'rebecca)
   )
 
 (configure-theme)
