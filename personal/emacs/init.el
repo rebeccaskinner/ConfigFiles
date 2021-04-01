@@ -5,6 +5,8 @@
 ;;; Code:
 (require 'cl)
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; disable the menu bar
 (menu-bar-mode -1)
 
@@ -38,16 +40,15 @@
 ; (setq cfg-pkg-installed-package-list (concat (emacs-cfg-dir) "installed-packages"))
 
 ;; packages
-(setq package-archives '(("gnu"          . "http://elpa.gnu.org/packages/")
-                         ("org"          . "http://orgmode.org/elpa/")
-                         ("marmalade"    . "http://marmalade-repo.org/packages/")
-                         ("melpa"        . "http://melpa.org/packages/")))
+(setq package-archives '( ("gnu"          . "https://elpa.gnu.org/packages/")
+                          ("org"          . "https://orgmode.org/elpa/")
+                          ("melpa"        . "https://melpa.org/packages/")))
 (package-initialize)
 
 ;; improve look and fee on macos
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-(add-to-list 'default-frame-alist '(background-color . "#2a2e38"))
+; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+; (add-to-list 'default-frame-alist '(ns-appearance . dark))
+; (add-to-list 'default-frame-alist '(background-color . "#D7AFDD"))
 
 ;; global custom commands
 (require 'calendar)
@@ -981,11 +982,18 @@ if EXTENSION is specified, use it for refreshing etags, or default to .el."
 
 (pdf-loader-install)
 
+(defun set-transparency()
+ (set-frame-parameter (selected-frame) 'alpha '(90 . 50))
+ (add-to-list 'default-frame-alist '(alpha . (90 . 50)))
+ )
+; (set-transparency)
+
+
 ;; Setup theme
 (defun configure-theme()
-;  (load-theme 'spacemacs-dark)
-                                        ;(load-theme 'leuven)
-   (load-theme 'rebecca)
+  (load-theme 'spacemacs-dark)
+; (load-theme 'leuven)
+;   (load-theme 'rebecca)
   )
 
 (configure-theme)
